@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import './mdCore';
-import './mdBackdrop';
+import './core';
+import './backdrop';
 import mdDialog from 'vue-material/dist/components/mdDialog';
 import 'vue-material/dist/components/mdDialog/index.css';
 

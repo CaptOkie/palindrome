@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import './mdCore';
+import './core';
 import mdTooltip from 'vue-material/dist/components/mdTooltip';
 import 'vue-material/dist/components/mdTooltip/index.css';
 

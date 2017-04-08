@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import './mdCore';
+import './core';
 import mdDivider from 'vue-material/dist/components/mdDivider';
 import 'vue-material/dist/components/mdDivider/index.css';
 

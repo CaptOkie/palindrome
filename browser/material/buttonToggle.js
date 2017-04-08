@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import './mdCore';
+import './core';
 import mdButtonToggle from 'vue-material/dist/components/mdButtonToggle';
 import 'vue-material/dist/components/mdButtonToggle/index.css';
 

@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import './mdCore';
+import './core';
 import mdWhiteframe from 'vue-material/dist/components/mdWhiteframe';
 import 'vue-material/dist/components/mdWhiteframe/index.css';
 

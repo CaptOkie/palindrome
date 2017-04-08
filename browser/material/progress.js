@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import './mdCore';
+import './core';
 import mdProgress from 'vue-material/dist/components/mdProgress';
 import 'vue-material/dist/components/mdProgress/index.css';
 

@@ -4,7 +4,7 @@ function MessageService() {
 }
 
 MessageService.prototype.getAll = function() {
-    return Promise.resolve(this.messages);
+    return Promise.resolve(Object.keys(this.messages).map(key => this.messages[key]));
 };
 
 MessageService.prototype.getOne = function(id) {
@@ -12,17 +12,16 @@ MessageService.prototype.getOne = function(id) {
 };
 
 MessageService.prototype.add = function(message) {
-    var exists = this.messages.some(existing => {
-        return existing.message === message;
-    });
-    if (exists) {
-        return Promise.resolve();
+    for (var key in this.messages) {
+        if (this.messages[key] === message) {
+            return Promise.resolve();
+        }
     }
 
     var id = '' + (this.id++);
     var obj = {
         id : id,
-        message : message,
+        value : message,
         palindrome : false
     };
     this.messages[id] = obj;

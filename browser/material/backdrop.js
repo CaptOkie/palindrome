@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import './mdCore';
+import './core';
 import mdBackdrop from 'vue-material/dist/components/mdBackdrop';
 import 'vue-material/dist/components/mdBackdrop/index.css';
 

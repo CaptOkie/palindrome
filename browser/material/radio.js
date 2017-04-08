@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import './mdCore';
+import './core';
 import mdRadio from 'vue-material/dist/components/mdRadio';
 import 'vue-material/dist/components/mdRadio/index.css';
 

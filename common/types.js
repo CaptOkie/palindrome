@@ -1,3 +1,3 @@
 module.exports.isString = function(value) {
-    return typeof myVar === 'string' || myVar instanceof String;
+    return typeof value === 'string' || value instanceof String;
 };

@@ -9,7 +9,7 @@ function MessageCtrl(messageService) {
 MessageCtrl.prototype.getAll = function(req, res, next) {
     this.messageService.getAll()
         .then(messages => {
-            res.json(messages);
+            res.json({ items : messages });
         })
         .catch(next);
 };

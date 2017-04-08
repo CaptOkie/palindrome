@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import './mdCore';
+import './core';
 import mdCard from 'vue-material/dist/components/mdCard';
 import 'vue-material/dist/components/mdCard/index.css';
 

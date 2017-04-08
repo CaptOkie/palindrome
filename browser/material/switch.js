@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import './mdCore';
+import './core';
 import mdSwitch from 'vue-material/dist/components/mdSwitch';
 import 'vue-material/dist/components/mdSwitch/index.css';
 

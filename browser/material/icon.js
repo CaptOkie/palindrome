@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import './mdCore';
-import './mdImage';
+import './core';
+import './image';
 import mdIcon from 'vue-material/dist/components/mdIcon';
 import 'vue-material/dist/components/mdIcon/index.css';
 

@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import './mdCore';
-import './mdBackdrop';
+import './core';
+import './backdrop';
 import mdSidenav from 'vue-material/dist/components/mdSidenav';
 import 'vue-material/dist/components/mdSidenav/index.css';
 

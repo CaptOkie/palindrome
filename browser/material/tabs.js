@@ -1,6 +1,6 @@
 import Vue from 'vue';
-import './mdCore';
-import './mdWhiteframe';
+import './core';
+import './whiteframe';
 import mdTabs from 'vue-material/dist/components/mdTabs';
 import 'vue-material/dist/components/mdTabs/index.css';
 

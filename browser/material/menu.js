@@ -1,7 +1,7 @@
 import Vue from 'vue';
-import './mdCore';
-import './mdList';
-import './mdBackdrop';
+import './core';
+import './list';
+import './backdrop';
 import mdMenu from 'vue-material/dist/components/mdMenu';
 import 'vue-material/dist/components/mdMenu/index.css';
 

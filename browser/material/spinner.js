@@ -1,5 +1,5 @@
 import Vue from 'vue';
-import './mdCore';
+import './core';
 import mdSpinner from 'vue-material/dist/components/mdSpinner';
 import 'vue-material/dist/components/mdSpinner/index.css';
 

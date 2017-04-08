@@ -54,7 +54,7 @@ app.use(function(err, req, res, next) {
         if (stack) {
             ret.stack = stack;
         }
-        return res.json();
+        return res.json(ret);
     }
 
     res.locals.status = status;
