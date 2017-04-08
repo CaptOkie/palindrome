@@ -8,6 +8,9 @@
     font-size: 18px;
     color: rgba(0,0,0,.87);
 }
+.msg-btn {
+    margin-right: -8px;
+}
 .msg-item {
     margin: 4px 0;
 }
@@ -16,6 +19,17 @@
 }
 .msg-item:last-of-type {
     margin-bottom: 0;
+}
+.body {
+    padding: 16px 8px;
+}
+.header {
+    height: 200px;
+    padding-top: 50px;
+}
+.md-toolbar.header .title {
+    color: inherit;
+    margin: 0;
 }
 /*!
 * Vue Material v0.7.1

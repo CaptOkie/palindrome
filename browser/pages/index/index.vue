@@ -1,16 +1,16 @@
 <template>
     <md-layout md-column>
         <md-whiteframe md-elevation="4">
-            <md-toolbar style="height: 200px; padding-top: 50px;">
+            <md-toolbar class="header">
                 <div class="md-flex-20"></div>
-                <h1 class="md-display-3 md-flex-60" style="color: inherit; margin: 0;">Palindrome</h1>
+                <h1 class="md-display-3 md-flex-60 title">Palindrome</h1>
             </md-toolbar>
 
             <md-toolbar class="md-transparent">
                 <md-layout md-row md-flex-offset="20" md-flex="60" class="flex-nowrap">
                     <input v-model="msg" @keyup.enter="create" class="msg-input" type="text" placeholder="Message">
 
-                    <md-button @click.native="create" class="md-icon-button" style="margin-right: -8px;">
+                    <md-button @click.native="create" class="md-icon-button msg-btn">
                         <md-icon>send</md-icon>
                     </md-button>
                 </md-layout>
@@ -18,7 +18,7 @@
         </md-whiteframe>
     
         <md-layout md-row>
-            <md-layout md-flex-offset="20" md-flex="60" md-column style="padding: 16px 8px;">
+            <md-layout class="body" md-flex-offset="20" md-flex="60" md-column>
                 <md-list>
                     <md-list-item v-for="message in messages" :key="message.value" @click.native="toggle(message)"
                             class="md-whiteframe-2dp msg-item">
@@ -90,6 +90,9 @@ export default {
     font-size: 18px;
     color: rgba(0,0,0,.87);
 }
+.msg-btn {
+    margin-right: -8px;
+}
 .msg-item {
     margin: 4px 0;
 }
@@ -98,5 +101,16 @@ export default {
 }
 .msg-item:last-of-type {
     margin-bottom: 0;
+}
+.body {
+    padding: 16px 8px;
+}
+.header {
+    height: 200px;
+    padding-top: 50px;
+}
+.md-toolbar.header .title {
+    color: inherit;
+    margin: 0;
 }
 </style>
