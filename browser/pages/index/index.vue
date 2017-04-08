@@ -156,6 +156,11 @@ export default {
 .msg-item:last-of-type {
     margin-bottom: 0;
 }
+.msg-item.md-list-item-expand.md-active:after,
+.msg-item.md-list-item-expand.md-active:before {
+    display: none;
+}
+
 .msg-item-actions {
     justify-content: flex-end;
     padding: 8px;
@@ -175,9 +180,5 @@ export default {
 }
 .msg-item-actions .md-button:first-of-type {
     margin-left: 0;
-}
-.msg-item.md-list-item-expand.md-active:after,
-.msg-item.md-list-item-expand.md-active:before {
-    display: none;
 }
 </style>
