@@ -4,11 +4,10 @@
             <md-toolbar style="height: 200px; padding-top: 50px;">
                 <div class="md-flex-20"></div>
                 <h1 class="md-display-3 md-flex-60" style="color: inherit; margin: 0;">Palindrome</h1>
-                <div class="md-flex-20"></div>
             </md-toolbar>
+
             <md-toolbar class="md-transparent">
-                <div class="md-flex-20"></div>
-                <md-layout md-row md-flex="60" class="flex-nowrap">
+                <md-layout md-row md-flex-offset="20" md-flex="60" class="flex-nowrap">
                     <input v-model="msg" @keyup.enter="create" class="msg-input" type="text" placeholder="Message">
 
                     <md-button @click.native="create" class="md-icon-button" style="margin-right: -8px;">
@@ -19,10 +18,10 @@
         </md-whiteframe>
     
         <md-layout md-row>
-            <md-layout md-flex="20"></md-layout>
-            <md-layout md-flex="60" md-column style="padding: 16px 8px;">
+            <md-layout md-flex-offset="20" md-flex="60" md-column style="padding: 16px 8px;">
                 <md-list>
-                    <md-list-item v-for="message in messages" :key="message.value" class="md-whiteframe-2dp msg-item">
+                    <md-list-item v-for="message in messages" :key="message.value" @click.native="toggle(message)"
+                            class="md-whiteframe-2dp msg-item">
                         <md-icon>{{message.palindrome ? 'check' : 'close'}}</md-icon>
                         <span>{{message.value}}</span>
 
@@ -32,7 +31,6 @@
                     </md-list-item>
                 </md-list>
             </md-layout>
-            <md-layout md-flex="20"></md-layout>
         </md-layout>
     </md-layout>
 </template>
@@ -52,7 +50,7 @@ const msgsUrl = messages();
 export default {
     name : 'index-page',
     data() {
-        return { msg : '', messages : [] };
+        return { msg : '', messages : [], selected : undefined };
     },
     methods : {
         create() {
@@ -66,6 +64,12 @@ export default {
             .catch(err => {
                 console.log((err.response && err.response.data) || err);
             });
+        },
+        toggle(msg) {
+            this.selected = this.isSelected(msg) ? undefined : msg.value;
+        },
+        isSelected(msg) {
+            return this.selected === msg.value;
         }
     },
     created() {
