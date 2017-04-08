@@ -1,9 +1,9 @@
 <template>
     <md-layout md-column>
-        <md-whiteframe md-elevation="2">
-            <md-toolbar>
+        <md-whiteframe md-elevation="4">
+            <md-toolbar style="height: 200px; padding-top: 50px;">
                 <div class="md-flex-20"></div>
-                <h1 class="md-title md-flex-60">Messages</h1>       
+                <h1 class="md-display-3 md-flex-60" style="color: inherit; margin: 0;">Palindrome</h1>
                 <div class="md-flex-20"></div>
             </md-toolbar>
             <md-toolbar class="md-transparent">
@@ -21,32 +21,16 @@
         <md-layout md-row>
             <md-layout md-flex="20"></md-layout>
             <md-layout md-flex="60" md-column style="padding: 16px 8px;">
-                <md-table-card>
+                <md-list>
+                    <md-list-item v-for="message in messages" :key="message.value" class="md-whiteframe-2dp msg-item">
+                        <md-icon>{{message.palindrome ? 'check' : 'close'}}</md-icon>
+                        <span>{{message.value}}</span>
 
-                    <md-table>
-                        <md-table-header>
-                            <md-table-row>
-                                <md-table-head style="width: 100%">Message</md-table-head>
-                                <md-table-head style="width: 0%">Palindrome</md-table-head>
-                                <md-table-head style="width: 0%">Delete</md-table-head>
-                            </md-table-row>
-                        </md-table-header>
-
-                        <md-table-body>
-                            <md-table-row v-for="message in messages" :key="message.value">
-                                <md-table-cell>{{message.value}}</md-table-cell>
-                                <md-table-cell>
-                                    <md-icon>{{message.palindrome ? 'check' : 'close'}}</md-icon>
-                                </md-table-cell>
-                                <md-table-cell>
-                                    <md-button class="md-icon-button">
-                                        <md-icon>delete</md-icon>
-                                    </md-button>
-                                </md-table-cell>
-                            </md-table-row>
-                        </md-table-body>
-                    </md-table>
-                </md-table-card>
+                        <md-button class="md-icon-button md-list-action">
+                            <md-icon>delete</md-icon>
+                        </md-button>
+                    </md-list-item>
+                </md-list>
             </md-layout>
             <md-layout md-flex="20"></md-layout>
         </md-layout>
@@ -56,12 +40,11 @@
 <script>
 import 'Material/layout';
 import 'Material/card';
-import 'Material/table';
 import 'Material/toolbar';
 import 'Material/button';
 import 'Material/icon';
-import 'Material/inputContainer';
 import 'Material/whiteframe';
+import 'Material/list';
 import { messages } from 'Common/urls';
 import axios from 'axios';
 
@@ -103,7 +86,13 @@ export default {
     font-size: 18px;
     color: rgba(0,0,0,.87);
 }
-.md-table .md-table-cell .md-button .md-icon {
-    margin: auto !important;
+.msg-item {
+    margin: 4px 0;
+}
+.msg-item:first-of-type {
+    margin-top: 0;
+}
+.msg-item:last-of-type {
+    margin-bottom: 0;
 }
 </style>
