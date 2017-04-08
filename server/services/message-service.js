@@ -3,6 +3,19 @@ function MessageService() {
     this.id = 0;
 }
 
+MessageService.isAPalindrome = function(str) {
+    str = str.toLowerCase().replace(/[^a-z0-9]/g, '');
+    // Don't care about middle character when length is odd
+    var num = Math.floor(str.length / 2);
+    for (var i = 0; i < num; ++i) {
+        var j = str.length - i - 1;
+        if (str.charAt(i) !== str.charAt(j)) {
+            return false;
+        }
+    }
+    return true;
+};
+
 MessageService.prototype.getAll = function() {
     return Promise.resolve(Object.keys(this.messages).map(key => this.messages[key]));
 };
@@ -13,19 +26,28 @@ MessageService.prototype.getOne = function(id) {
 
 MessageService.prototype.add = function(message) {
     for (var key in this.messages) {
-        if (this.messages[key] === message) {
+        if (this.messages[key].value === message) {
             return Promise.resolve();
         }
     }
 
     var id = '' + (this.id++);
-    var obj = {
+    var item = {
         id : id,
         value : message,
-        palindrome : false
+        palindrome : MessageService.isAPalindrome(message)
     };
-    this.messages[id] = obj;
-    return Promise.resolve(obj);
+    this.messages[id] = item;
+    return Promise.resolve(item);
+};
+
+MessageService.prototype.update = function(id, message) {
+    var item = this.messages[id];
+    if (item) {
+        item.value = message;
+        item.palindrome = MessageService.isAPalindrome(message);
+    }
+    return Promise.resolve(item);
 };
 
 MessageService.prototype.delete = function(id) {
