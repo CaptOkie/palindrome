@@ -20,21 +20,9 @@
         <md-layout md-row>
             <md-layout class="body" md-flex-offset="20" md-flex="60" md-column>
                 <md-list>
-                    <md-list-item v-for="(message, index) in messages" :key="message.id"
-                            class="md-whiteframe-2dp msg-item">
-                        <md-icon>{{message.palindrome ? 'check' : 'close'}}</md-icon>
-                        <span>{{message.value}}</span>
-
-                        <md-list-expand>
-                            <md-layout md-column>
-                                <md-layout md-row class="msg-item-actions">
-                                    <md-button @click.native="remove(message, index)">
-                                        Delete
-                                    </md-button>
-                                </md-layout>
-                            </md-layout>
-                        </md-list-expand>
-                    </md-list-item>
+                    <c-msg-item v-for="(message, index) in messages" :key="message.id" :p-msg="message"
+                            @e-remove="remove(message, index)" @e-save="update">
+                    </c-msg-item>
                 </md-list>
             </md-layout>
         </md-layout>
@@ -54,6 +42,7 @@ import 'Material/icon';
 import 'Material/whiteframe';
 import 'Material/list';
 import 'Material/snackbar';
+import cMsgItem from 'Components/msg-item';
 import { messages } from 'Common/urls';
 import axios from 'axios';
 
@@ -79,8 +68,7 @@ export default {
             .catch(err => {
                 switch (err.response.status) {
                     case 409:
-                        this.notification = 'Message already exists';
-                        this.$refs.snackbar.open();
+                        this.showExists();
                         break;
                     default: 
                         console.log(err.response.data);
@@ -110,12 +98,36 @@ export default {
             .then(() => {
                 this.removing = false;
             });
+        },
+        update(data) {
+            const { value, item } = data;
+            axios.post(messages(item.id), { value }).then(res => {
+                item.value = res.data.value;
+                item.palindrome = res.data.palindrome;
+            })
+            .catch(err => {
+                switch (err.response.status) {
+                    case 409:
+                        this.showExists();
+                        break;
+                    default: 
+                        console.log(err.response.data);
+                        break;
+                }
+            });
+        },
+        showExists() {
+            this.notification = 'Message already exists';
+            this.$refs.snackbar.open();
         }
     },
     created() {
         axios.get(msgsUrl).then(res => {
             this.messages = res.data.items;
         });
+    },
+    components : {
+        cMsgItem
     }
 }
 </script>
@@ -145,40 +157,5 @@ export default {
 }
 .md-button.md-icon-button.msg-btn {
     margin-right: -8px;
-}
-
-.msg-item {
-    margin: 4px 0;
-}
-.msg-item:first-of-type {
-    margin-top: 0;
-}
-.msg-item:last-of-type {
-    margin-bottom: 0;
-}
-.msg-item.md-list-item-expand.md-active:after,
-.msg-item.md-list-item-expand.md-active:before {
-    display: none;
-}
-
-.msg-item-actions {
-    justify-content: flex-end;
-    padding: 8px;
-}
-.msg-item-actions:before {
-    height: 1px;
-    position: absolute;
-    top: 0;
-    right: 0;
-    left: 0;
-    transition: all .4s cubic-bezier(.25,.8,.25,1);
-    content: " ";
-    background-color: rgba(0,0,0,.12);
-}
-.msg-item-actions .md-button {
-    margin: 0 0 0 8px;
-}
-.msg-item-actions .md-button:first-of-type {
-    margin-left: 0;
 }
 </style>
