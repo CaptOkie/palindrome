@@ -3,7 +3,5 @@ module.exports.http = {
 };
 
 module.exports.db = {
-    host : 'localhost',
-    port : '27017',
-    db : 'palindrome'
+    url : 'mongodb://localhost:27017/palindrome'
 };

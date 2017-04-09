@@ -38,7 +38,9 @@ export default {
             this.$emit('e-remove');
         },
         save() {
-            this.$emit('e-save', { value : this.newMsg, item : this.pMsg });
+            if (this.newMsg.length) {
+                this.$emit('e-save', { value : this.newMsg, item : this.pMsg });
+            }
         },
         clearMsg() {
             this.newMsg = '';

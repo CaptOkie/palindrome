@@ -1,12 +1,21 @@
-function duplicate() {
-    var err = new Error();
-    err.duplicate = true;
+var ObjectId = require('mongodb').ObjectId;
+
+function convert(doc) {
+    doc.id = doc._id.toHexString();
+    delete doc._id;
+    return doc;
+}
+
+function catchDuplicate(err) {
+    if (err.code === 11000) {
+        err.duplicate = true;
+    }
     return Promise.reject(err);
 }
 
 function MessageService(db) {
-    this.messages = {};
-    this.id = 0;
+    this.messages = db.collection('messages');
+    this.messages.createIndex({ value : 1 }, { unique : true });
 }
 
 MessageService.isAPalindrome = function(str) {
@@ -23,51 +32,62 @@ MessageService.isAPalindrome = function(str) {
 };
 
 MessageService.prototype.getAll = function() {
-    return Promise.resolve(Object.keys(this.messages).map(key => this.messages[key]));
+    return this.messages.find().map(convert).toArray();
 };
 
 MessageService.prototype.getOne = function(id) {
-    return Promise.resolve(this.messages[id]);
+    if (!ObjectId.isValid(id)) {
+        return Promise.resolve();
+    }
+    return this.messages.findOne({ _id : new ObjectId(id) }).then(msg => {
+        if (msg) {
+            return convert(msg);
+        }
+        return false;
+    });
 };
 
 MessageService.prototype.add = function(message) {
-    for (var key in this.messages) {
-        if (this.messages[key].value === message) {
-            return duplicate();
-        }
-    }
 
-    var id = '' + (this.id++);
     var item = {
-        id : id,
         value : message,
         palindrome : MessageService.isAPalindrome(message)
     };
-    this.messages[id] = item;
-    return Promise.resolve(item);
+    return this.messages.insertOne(item)
+        .then(result => {
+            item._id = result.insertedId;
+            return convert(item);
+        })
+        .catch(catchDuplicate);
 };
 
 MessageService.prototype.update = function(id, message) {
-    for (var key in this.messages) {
-        if (this.messages[key].value === message) {
-            return duplicate();
-        }
+    if (!ObjectId.isValid(id)) {
+        return Promise.resolve();
     }
 
-    var item = this.messages[id];
-    if (item) {
-        item.value = message;
-        item.palindrome = MessageService.isAPalindrome(message);
-    }
-    return Promise.resolve(item);
+    var update = {
+        value : message,
+        palindrome : MessageService.isAPalindrome(message)
+    };
+    return this.messages.updateOne({ _id : new ObjectId(id) }, { $set : update })
+        .then(result => {
+            if (result.matchedCount) {
+                update.id = id;
+                return update;
+            }
+            return false;
+        })
+        .catch(catchDuplicate);
 };
 
 MessageService.prototype.delete = function(id) {
-    if (!this.messages[id]) {
-        return Promise.resolve(false);
+    if (!ObjectId.isValid(id)) {
+        return Promise.resolve();
     }
-    delete this.messages[id];
-    return Promise.resolve(true);
+
+    return this.messages.deleteOne({ _id : new ObjectId(id) })
+        .then(result => result.deletedCount > 0);
 };
 
 MessageService.create = function(db) {

@@ -36,6 +36,7 @@ function MessageCtrl(messageService) {
 }
 
 MessageCtrl.prototype.getAll = function(req, res, next) {
+    console.log(req.is('html'), req.is('text/html'), req.is('json'), req.is('application/json'))
     this.messageService.getAll()
         .then(messages => {
             res.json({ items : messages });
