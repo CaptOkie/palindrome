@@ -59,72 +59,72 @@ export default {
             }
 
             const curr = this.msg;
-            axios.post(msgsUrl, { value : this.msg }).then(res => {
-                if (curr === this.msg) {
-                    this.msg = '';
-                }
-                this.messages.push(res.data);
-            })
-            .catch(err => {
-                switch (err.response.status) {
-                    case 409:
-                        this.showExists();
-                        break;
-                    default: 
-                        console.log(err.response.data);
-                        break;
-                }
-            });
+            axios.post(msgsUrl, { value : this.msg })
+                .then(res => {
+                    if (curr === this.msg) {
+                        this.msg = '';
+                    }
+                    this.messages.push(res.data);
+                })
+                .catch(err => {
+                    switch (err.response.status) {
+                        case 409:
+                            this.showExists();
+                            break;
+                        default: 
+                            console.log(err.response.data);
+                            break;
+                    }
+                });
         },
         remove(msg, index) {
-            if (this.removing) {
-                return;
-            }
-            this.removing = true;
-
-            axios.delete(messages(msg.id)).then(res => {
-                this.messages.splice(index, 1);
-            })
-            .catch(err => {
-                switch(err.response.status) {
-                    case 404:
-                        this.messages.splice(index, 1);
-                        break;
-                    default:
-                        console.log(err.response.data);
-                        break;
-                }
-            })
-            .then(() => {
-                this.removing = false;
-            });
+            this.messages.splice(index, 1);
+            axios.delete(messages(msg.id))
+                .catch(err => {
+                    switch(err.response.status) {
+                        case 404:
+                            break;
+                        default:
+                            this.showMsg('There was an issue deleting the message');
+                            console.log(err.response.data);
+                            break;
+                    }
+                });
         },
         update(data) {
             const { value, item } = data;
-            axios.post(messages(item.id), { value }).then(res => {
-                item.value = res.data.value;
-                item.palindrome = res.data.palindrome;
-            })
-            .catch(err => {
-                switch (err.response.status) {
-                    case 409:
-                        this.showExists();
-                        break;
-                    default: 
-                        console.log(err.response.data);
-                        break;
-                }
-            });
+            axios.post(messages(item.id), { value })
+                .then(res => {
+                    item.value = res.data.value;
+                    item.palindrome = res.data.palindrome;
+                })
+                .catch(err => {
+                    switch (err.response.status) {
+                        case 409:
+                            this.showExists();
+                            break;
+                        default: 
+                            console.log(err.response.data);
+                            break;
+                    }
+                });
+        },
+        showMsg(msg) {
+            this.notification = msg;
+            this.$refs.snackbar.open();
         },
         showExists() {
-            this.notification = 'Message already exists';
-            this.$refs.snackbar.open();
+            this.showMsg('Message already exists');
         }
     },
     created() {
-        axios.get(msgsUrl).then(res => {
-            this.messages = res.data.items;
-        });
+        axios.get(msgsUrl)
+            .then(res => {
+                this.messages = res.data.items;
+            })
+            .catch(err => {
+                console.log(err.response.data);
+            });
     },
     components : {
         cMsgItem

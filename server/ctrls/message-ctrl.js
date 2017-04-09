@@ -13,8 +13,8 @@ function getMessage(value) {
     return value.replace(/\s+/g, ' ');
 }
 
-function notFound(id) {
-    var err = new Error('Message ' + id + ' does not exist');
+function notFound() {
+    var err = new Error('Message not found');
     err.status = 404;
     return err;
 }
@@ -36,7 +36,6 @@ function MessageCtrl(messageService) {
 }
 
 MessageCtrl.prototype.getAll = function(req, res, next) {
-    console.log(req.is('html'), req.is('text/html'), req.is('json'), req.is('application/json'))
     this.messageService.getAll()
         .then(messages => {
             res.json({ items : messages });
@@ -51,7 +50,7 @@ MessageCtrl.prototype.getOne = function(req, res, next) {
             if (message) {
                 return res.json(message);
             }
-            next(notFound(id));
+            next(notFound());
         })
         .catch(next);
 };
@@ -83,7 +82,7 @@ MessageCtrl.prototype.update = function(req, res, next) {
             if (message) {
                 return res.json(message);
             }
-            next(notFound(id));
+            next(notFound());
         })
         .catch(err => {
             next(err.duplicate ? duplicate() : err);
@@ -97,7 +96,7 @@ MessageCtrl.prototype.delete = function(req, res, next) {
             if (success) {
                 return res.status(204).end();
             }
-            next(notFound(id));
+            next(notFound());
         })
         .catch(next);
 };
