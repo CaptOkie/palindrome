@@ -18,7 +18,8 @@ the `MessageService`. Services handle the actual logic and deal with interacting
 
 ### Response
 
-#### Success `200`
+#### `200` Success
+
 ```JavaScript
 {
   "items" : [
@@ -29,3 +30,36 @@ the `MessageService`. Services handle the actual logic and deal with interacting
     }
   ]
 }
+```
+
+## Get One Message
+
+### Request
+
+| Method | URL |
+| :--- | :--- |
+| `GET` | `/msgs/:id` |
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `String` | The ID of the message |
+
+### Response
+
+#### `200` Success
+
+```JavaScript
+{
+  "id" : String,
+  "value" : String,
+  "palindrome" : Boolean
+}
+```
+
+#### `404` Not found
+
+```JavaScript
+{
+  "error" : "Message not found"
+}
+```
