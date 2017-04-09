@@ -5,7 +5,7 @@
   "author": "CaptOkie",
   "private": true,
   "scripts": {
-    "start-dev": "DEBUG=server:* node ./bin/www",
+    "start-dev": "DEBUG=server:* CONFIG=development node ./bin/www",
     "start": "node ./bin/www"
   },
   "dependencies": {
