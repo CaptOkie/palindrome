@@ -54,3 +54,8 @@ README.md
 .dockerignore
 Dockerfile
 docker-compose.yml
+
+# configs
+server/config
+!server/config/docker.js
+!server/config/index.js
