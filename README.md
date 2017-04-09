@@ -192,3 +192,9 @@ _No body_
   "error" : "Message not found"
 }
 ```
+
+# Sequence Diagram
+
+## Get All Messages
+
+![Get all messages](docs/imgs/get-msgs.png "Get all messages")
