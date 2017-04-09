@@ -32,7 +32,7 @@ the `MessageService`. Services handle the actual logic and deal with interacting
 }
 ```
 
-## Get One Message
+## Get a Message
 
 ### Request
 
@@ -63,7 +63,7 @@ the `MessageService`. Services handle the actual logic and deal with interacting
   "error" : "Message not found"
 }
 ```
-## Create Message
+## Create a Message
 
 ### Request
 
@@ -107,7 +107,7 @@ the `MessageService`. Services handle the actual logic and deal with interacting
 }
 ```
 
-## Update Message
+## Update a Message
 
 ### Request
 
@@ -118,7 +118,6 @@ the `MessageService`. Services handle the actual logic and deal with interacting
 | Parameter | Type | Description |
 | :--- | :--- | :--- |
 | `id` | `String` | The ID of the message |
-
 
 #### Body
 
@@ -160,5 +159,31 @@ the `MessageService`. Services handle the actual logic and deal with interacting
 ```JavaScript
 {
   "error" : "Duplicate message"
+}
+```
+
+## Delete a Message
+
+### Request
+
+| Method | URL |
+| :--- | :--- |
+| `DELETE` | `/msgs/:id` |
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `String` | The ID of the message |
+
+### Response
+
+#### `204` Success
+
+_No body_
+
+#### `404` Not found
+
+```JavaScript
+{
+  "error" : "Message not found"
 }
 ```
