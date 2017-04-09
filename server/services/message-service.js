@@ -4,7 +4,7 @@ function duplicate() {
     return Promise.reject(err);
 }
 
-function MessageService() {
+function MessageService(db) {
     this.messages = {};
     this.id = 0;
 }
@@ -53,7 +53,7 @@ MessageService.prototype.update = function(id, message) {
             return duplicate();
         }
     }
-    
+
     var item = this.messages[id];
     if (item) {
         item.value = message;
@@ -70,8 +70,8 @@ MessageService.prototype.delete = function(id) {
     return Promise.resolve(true);
 };
 
-MessageService.create = function() {
-    return new MessageService();
+MessageService.create = function(db) {
+    return new MessageService(db);
 };
 
 module.exports = MessageService;
