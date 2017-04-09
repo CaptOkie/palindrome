@@ -63,3 +63,46 @@ the `MessageService`. Services handle the actual logic and deal with interacting
   "error" : "Message not found"
 }
 ```
+## Create Message
+
+### Request
+
+| Method | URL |
+| :--- | :--- |
+| `POST` | `/msgs/` |
+
+#### Body
+
+```JavaScript
+{
+  "value" : String
+}
+```
+
+### Response
+
+#### `200` Success
+
+```JavaScript
+{
+  "id" : String,
+  "value" : String,
+  "palindrome" : Boolean
+}
+```
+
+#### `400` Illegal Value
+
+```JavaScript
+{
+  "error" : "Illegal value"
+}
+```
+
+#### `409` Duplicate message
+
+```JavaScript
+{
+  "error" : "Duplicate message"
+}
+```
