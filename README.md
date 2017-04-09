@@ -203,3 +203,15 @@ _No body_
 ## Get a Message
 
 ![Get a message](docs/imgs/get-msg.png "Get a message")
+
+## Create a Message
+
+![Create a message](docs/imgs/create-msg.png "Create a message")
+
+## Update a Message
+
+![Update a message](docs/imgs/update-msg.png "Update a message")
+
+## Delete a Message
+
+![Delete a message](docs/imgs/delete-msg.png "Delete a message")
