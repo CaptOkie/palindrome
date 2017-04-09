@@ -1,3 +1,9 @@
+function duplicate() {
+    var err = new Error();
+    err.duplicate = true;
+    return Promise.reject(err);
+}
+
 function MessageService() {
     this.messages = {};
     this.id = 0;
@@ -27,7 +33,7 @@ MessageService.prototype.getOne = function(id) {
 MessageService.prototype.add = function(message) {
     for (var key in this.messages) {
         if (this.messages[key].value === message) {
-            return Promise.resolve();
+            return duplicate();
         }
     }
 
@@ -42,6 +48,12 @@ MessageService.prototype.add = function(message) {
 };
 
 MessageService.prototype.update = function(id, message) {
+    for (var key in this.messages) {
+        if (this.messages[key].value === message) {
+            return duplicate();
+        }
+    }
+    
     var item = this.messages[id];
     if (item) {
         item.value = message;

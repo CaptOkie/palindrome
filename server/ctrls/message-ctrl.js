@@ -2,6 +2,35 @@ var express = require('express');
 var Urls = require('../../common/urls');
 var Types = require('../../common/types');
 
+function getMessage(value) {
+    if (!Types.isString(value)) {
+        return false;
+    }
+    value = value.trim();
+    if (!value.length) {
+        return false;
+    }
+    return value.replace(/\s+/g, ' ');
+}
+
+function notFound(id) {
+    var err = new Error('Message ' + id + ' does not exist');
+    err.status = 404;
+    return err;
+}
+
+function illegalValue() {
+    var err = new Error('Illegal value');
+    err.status = 400;
+    return err;
+}
+
+function duplicate() {
+    var err = new Error('Duplicate message');
+    err.status = 409;
+    return err;
+}
+
 function MessageCtrl(messageService) {
     this.messageService = messageService;
 }
@@ -21,40 +50,31 @@ MessageCtrl.prototype.getOne = function(req, res, next) {
             if (message) {
                 return res.json(message);
             }
-            var err = new Error('Message ' + id + ' does not exist');
-            err.status = 404;
-            next(err);
+            next(notFound(id));
         })
         .catch(next);
 };
 
 MessageCtrl.prototype.create = function(req, res, next) {
-    var message = req.body.value;
-    if (!Types.isString(message) || !message.length) {
-        var err = new Error('Illegal value');
-        err.status = 400;
-        return next(err);
+    var message = getMessage(req.body.value);
+    if (!message) {
+        return next(illegalValue());
     }
-    
+
     this.messageService.add(message)
         .then(message => {
-            if (message) {
-                return res.json(message);
-            }
-            var err = new Error('Message exists');
-            err.status = 409;
-            next(err);
+            return res.json(message);
         })
-        .catch(next);
+        .catch(err => {
+            next(err.duplicate ? duplicate() : err);
+        });
 };
 
 MessageCtrl.prototype.update = function(req, res, next) {
     var id = req.params.id;
-    var message = req.body.value;
-    if (!Types.isString(message) || !message.length) {
-        var err = new Error('Illegal value');
-        err.status = 400;
-        return next(err);
+    var message = getMessage(req.body.value);
+    if (!message) {
+        return next(illegalValue());
     }
 
     this.messageService.update(id, message)
@@ -62,11 +82,11 @@ MessageCtrl.prototype.update = function(req, res, next) {
             if (message) {
                 return res.json(message);
             }
-            var err = new Error('Message ' + id + ' does not exist');
-            err.status = 404;
-            next(err);
+            next(notFound(id));
         })
-        .catch(next);
+        .catch(err => {
+            next(err.duplicate ? duplicate() : err);
+        });
 };
 
 MessageCtrl.prototype.delete = function(req, res, next) {
@@ -76,9 +96,7 @@ MessageCtrl.prototype.delete = function(req, res, next) {
             if (success) {
                 return res.status(204).end();
             }
-            var err = new Error('Message ' + id + ' does not exist');
-            err.status = 404;
-            next(err);
+            next(notFound(id));
         })
         .catch(next);
 };
