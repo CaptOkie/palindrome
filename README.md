@@ -199,3 +199,7 @@ _No body_
 ## Get All Messages
 
 ![Get all messages](docs/imgs/get-msgs.png "Get all messages")
+
+## Get a Message
+
+![Get a message](docs/imgs/get-msg.png "Get a message")
