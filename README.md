@@ -2,6 +2,7 @@
 
 * [Architecture](#architecture)
 * [REST API](#rest-api)
+* [Sequence Diagrams](#sequence-diagrams)
 
 # Architecture
 
@@ -193,7 +194,7 @@ _No body_
 }
 ```
 
-# Sequence Diagram
+# Sequence Diagrams
 
 ## Get All Messages
 
