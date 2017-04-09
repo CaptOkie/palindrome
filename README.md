@@ -106,3 +106,59 @@ the `MessageService`. Services handle the actual logic and deal with interacting
   "error" : "Duplicate message"
 }
 ```
+
+## Update Message
+
+### Request
+
+| Method | URL |
+| :--- | :--- |
+| `POST` | `/msgs/:id` |
+
+| Parameter | Type | Description |
+| :--- | :--- | :--- |
+| `id` | `String` | The ID of the message |
+
+
+#### Body
+
+```JavaScript
+{
+  "value" : String
+}
+```
+### Response
+
+#### `200` Success
+
+```JavaScript
+{
+  "id" : String,
+  "value" : String,
+  "palindrome" : Boolean
+}
+```
+
+#### `400` Illegal Value
+
+```JavaScript
+{
+  "error" : "Illegal value"
+}
+```
+
+#### `404` Not found
+
+```JavaScript
+{
+  "error" : "Message not found"
+}
+```
+
+#### `409` Duplicate message
+
+```JavaScript
+{
+  "error" : "Duplicate message"
+}
+```
