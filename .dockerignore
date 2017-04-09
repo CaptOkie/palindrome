@@ -49,3 +49,8 @@ docs
 .gitignore
 LICENSE
 README.md
+
+# docker
+.dockerignore
+Dockerfile
+docker-compose.yml
