@@ -2,6 +2,7 @@ version: '2'
 services:
   http:
     build: .
+    restart: always
     ports:
      - "80:3000"
     links:
