@@ -1,7 +1,6 @@
 # Palindrome
 
-A web application that checks if submitted messages are palindromes. The [live demo](http://34.200.215.7/) can be accessed
-here.
+A web application that checks if submitted messages are palindromes. See the [live demo](http://34.200.215.7/).
 
 # Contents
 
