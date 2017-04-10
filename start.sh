@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker-compose up
+docker-compose -f /webapps/palindrome/docker-compose.yml up
