@@ -1,8 +1,14 @@
+# Palindrome
+
+A web application that checks if submitted messages are palindromes. The [live demo](http://34.200.215.7/) can be accessed
+here.
+
 # Contents
 
 * [Architecture](#architecture)
 * [REST API](#rest-api)
 * [Sequence Diagrams](#sequence-diagrams)
+* [Deployment](#deployment)
 
 # Architecture
 
@@ -215,3 +221,29 @@ _No body_
 ## Delete a Message
 
 ![Delete a message](docs/imgs/delete-msg.png "Delete a message")
+
+# Deployment
+
+## Build Browser
+
+```bash
+# Development build mode
+$ npm run build-dev
+# Production build mode
+$ npm run build
+```
+
+## Run Server
+
+```bash
+# Development mode
+$ npm run start-dev
+# Production mode
+$ npm run start
+```
+
+## AWS
+
+[AWS CodeDeploy](https://aws.amazon.com/documentation/codedeploy/) is used to automate the deployment process. Currently
+a user has to login to the AWS console and manually start the new deployment by giving it a new commit ID, but Github can be
+setup to auto-deploy when a change occurs.
