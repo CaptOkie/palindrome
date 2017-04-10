@@ -1,3 +1,3 @@
 #!/bin/sh
 
-docker-compose -f /webapps/palindrome/docker-compose.yml up -d
+docker-compose -f /webapps/palindrome/docker-compose.yml up -d --build
