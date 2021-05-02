@@ -3,12 +3,17 @@ package io.github.captokie.palindrome.message;
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.lang.Nullable;
 
+import io.swagger.v3.oas.annotations.media.Schema;
+
 @Document
 public class Message {
 
     @Nullable
+    @Schema(description = "The ID of the message")
     private String id;
+    @Schema(description = "The text value representing the actual message")
     private String value;
+    @Schema(description = "Whether or not the message is a palindrome")
     private boolean palindrome = false;
 
     /**

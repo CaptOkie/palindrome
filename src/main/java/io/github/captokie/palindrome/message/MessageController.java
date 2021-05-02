@@ -1,6 +1,7 @@
 package io.github.captokie.palindrome.message;
 
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.server.ResponseStatusException;
 
 import io.github.captokie.palindrome.PalindromeEvaluator;
+import io.swagger.v3.oas.annotations.media.Schema;
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
@@ -29,24 +31,25 @@ public class MessageController {
         this.palindromeEvaluator = palindromeEvaluator;
     }
 
-    @GetMapping
+    @GetMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Flux<Message> findAll() {
         return repository.findAll();
     }
 
-    @GetMapping("/{id}")
-    public Mono<Message> findOne(@PathVariable("id") String id) {
+    @GetMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<Message> findOne(@Schema(description = "The ID of the message") @PathVariable("id") String id) {
         return repository.findById(id).switchIfEmpty(notFound());
     }
 
-    @PostMapping
+    @PostMapping(produces = MediaType.APPLICATION_JSON_VALUE)
     public Mono<Message> create(@Validated @RequestBody Message message) {
         message.setId(null);
         return save(message);
     }
 
-    @PutMapping("/{id}")
-    public Mono<Message> update(@PathVariable("id") String id, @Validated @RequestBody Message message) {
+    @PutMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public Mono<Message> update(@Schema(description = "The ID of the message") @PathVariable("id") String id,
+            @Validated @RequestBody Message message) {
         return repository.findById(id).map(existingMessage -> {
             existingMessage.setValue(message.getValue());
             return existingMessage;
@@ -58,9 +61,9 @@ public class MessageController {
         return repository.save(message);
     }
 
-    @DeleteMapping("/{id}")
+    @DeleteMapping(value = "/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public Mono<Void> delete(@PathVariable("id") String id) {
+    public Mono<Void> delete(@Schema(description = "The ID of the message") @PathVariable("id") String id) {
         return repository.deleteById(id);
     }
 
