@@ -1,5 +1,7 @@
 package io.github.captokie.palindrome.message;
 
+import javax.validation.constraints.NotNull;
+
 import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.lang.Nullable;
 
@@ -11,6 +13,7 @@ public class Message {
     @Nullable
     @Schema(description = "The ID of the message")
     private String id;
+    @NotNull
     @Schema(description = "The text value representing the actual message")
     private String value;
     @Schema(description = "Whether or not the message is a palindrome")
