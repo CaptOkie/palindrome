@@ -1,12 +1,14 @@
 package io.github.captokie.palindrome.message;
 
+import org.springframework.data.repository.Repository;
+
 import reactor.core.publisher.Flux;
 import reactor.core.publisher.Mono;
 
 /**
  * The interface for managing {@link Message} resources
  */
-public interface MessageRepository {
+public interface MessageRepository extends Repository<Message, String> {
 
     /**
      * @return All the messages in the repository

@@ -1,7 +1,9 @@
 package io.github.captokie.palindrome.message;
 
+import org.springframework.data.mongodb.core.mapping.Document;
 import org.springframework.lang.Nullable;
 
+@Document
 public class Message {
 
     @Nullable
