@@ -1,4 +1,4 @@
-# Palindrome
+# Palindrome (Test)
 
 A web application that checks if submitted messages are palindromes.
 
