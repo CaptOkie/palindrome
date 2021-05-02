@@ -31,8 +31,6 @@ public interface MessageRepository extends Repository<Message, String> {
 
     /**
      * @param id The ID of the message to delete
-     * @return <code>true</code> if a message was deleted, <code>false</code>
-     *         otherwise
      */
-    Mono<Boolean> deleteById(String id);
+    Mono<Void> deleteById(String id);
 }

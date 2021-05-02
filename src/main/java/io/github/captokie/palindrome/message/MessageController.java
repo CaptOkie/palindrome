@@ -61,7 +61,7 @@ public class MessageController {
     @DeleteMapping("/{id}")
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public Mono<Void> delete(@PathVariable("id") String id) {
-        return repository.deleteById(id).flatMap(exists -> exists ? Mono.empty() : notFound());
+        return repository.deleteById(id);
     }
 
     private static <T> Mono<T> notFound() {

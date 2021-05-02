@@ -91,12 +91,7 @@ class MessageControllerTest {
 
     @Test
     void testDelete() {
-        when(repository.deleteById("message_id")).thenReturn(Mono.just(false));
-        Mono<Void> mono = controller.delete("message_id");
-        ResponseStatusException e = assertThrows(ResponseStatusException.class, () -> mono.block());
-        assertEquals(HttpStatus.NOT_FOUND, e.getStatus());
-
-        when(repository.deleteById("message_id")).thenReturn(Mono.just(true));
+        when(repository.deleteById("message_id")).thenReturn(Mono.empty());
         assertNull(controller.delete("message_id").block());
     }
 }
