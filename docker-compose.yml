@@ -1,0 +1,28 @@
+version: "3.7"
+volumes:
+  mongo-config:
+  mongo-data:
+services:
+  palindrome:
+    build: .
+    ports: 
+      - 8080:8080
+    # Ideally this would be used, but there's something up with the
+    # mongo container and it not registering as started or something
+    # which prevents this container from starting
+    # depends_on: 
+    #   - mongo
+    environment: 
+      - SPRING_DATA_MONGODB_DATABASE=palindrome
+      - SPRING_DATA_MONGODB_HOST=mongo
+  mongo:
+    image: mongo:4
+    ports:
+      - 27017:27017
+    volumes:
+      - type: volume
+        source: mongo-config
+        target: /data/configdb
+      - type: volume
+        source: mongo-data
+        target: /data/db

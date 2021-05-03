@@ -8,15 +8,25 @@ API information is served by the application itself. OpenAPI specs can be access
 
 # Deployment
 
-All operations are relative to root directory of the project. Apache Maven is required to build the project. Java 8 or later is required to build and run the project.
+All operations are relative to root project directory.
 
-## Testing
+## Docker
+
+```BASH
+$ docker-compose up 
+```
+
+## Manual
+
+Apache Maven is required to build the project. Java 8 or later is required to build and run the project.
+
+### Testing
 
 ```BASH
 $ mvn clean test
 ```
 
-## Building
+### Building
 
 > Note: The build also runs the test suite
 
@@ -24,7 +34,7 @@ $ mvn clean test
 $ mvn clean package
 ```
 
-## Running
+### Running
 
 The [Spring Boot](https://docs.spring.io/spring-boot/docs/current/reference/html/appendix-application-properties.html#common-application-properties) and [SpringDoc OpenAPI](https://springdoc.org/#properties) properties can be used to configure the application. By default the application will listen on port 8080 and connects to a MongoDB instance on port 27017.
 
