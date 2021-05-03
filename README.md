@@ -21,7 +21,7 @@ $ mvn clean test
 > Note: The build also runs the test suite
 
 ```BASH
-$ mvn clean build
+$ mvn clean package
 ```
 
 ## Running
